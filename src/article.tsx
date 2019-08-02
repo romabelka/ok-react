@@ -19,16 +19,55 @@ interface Props {
 }
 
 interface State {
+    isOpen: boolean
+    foo: string
 }
 
 export default class Article extends React.Component<Props, State> {
+    state: State = {
+        isOpen: true,
+        foo: 'bar'
+    }
+
     render() {
         const { article } = this.props
         return (
-            <div>
+            <>
                 <h1>{article.title}</h1>
-                <section>{article.text}</section>
-            </div>
+                <button onClick = {this.toggleOpen}>
+                    {this.state.isOpen ? 'close' :'open'}
+                </button>
+                {this.getBody()}
+            </>
+        )
+    }
+
+    toggleOpen = () => {
+        this.setState(state => ({
+            isOpen: !state.isOpen  //true -> false
+        }))
+
+        this.setState(state => ({
+            isOpen: !state.isOpen  //false -> true
+        }))
+
+/*
+        this.setState({
+            isOpen: !this.state.isOpen  //true -> false
+        })
+        //true
+        this.setState({
+            isOpen: !this.state.isOpen  //true -> false
+        })
+*/
+
+    }
+
+    getBody() {
+        if (!this.state.isOpen) return null
+
+        return (
+            <section>{this.props.article.text}</section>
         )
     }
 }
