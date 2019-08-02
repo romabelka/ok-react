@@ -1,24 +1,28 @@
 import * as React from 'react'
 import Article from './article-new'
 import {IArticle} from './article'
-import Accordion from './components/accordion'
+import withAccordion from './decorators/accordion'
 
 interface Props {
     articles: IArticle[]
+    toggleOpenItem: (article: IArticle) => void
+    openItemId?: string
 }
 
-export default class ArticleList extends Accordion<Props> {
-
+class ArticleList extends React.Component<Props> {
     render() {
+        const { articles, openItemId, toggleOpenItem } = this.props
         return (
             <div>
-                {this.props.articles.map((article) =>
+                {articles.map((article) =>
                     <Article article={article}
-                             isOpen={article.id === this.state.openItemId}
-                             onBtnClick={this.toggleOpenItem}
+                             isOpen={openItemId === article.id}
+                             onBtnClick={toggleOpenItem}
                              key={article.id}/>
                 )}
             </div>
         )
     }
 }
+
+export default withAccordion<Props>(ArticleList)
