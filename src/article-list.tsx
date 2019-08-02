@@ -9,7 +9,7 @@ interface Props {
     openItemId?: string
 }
 
-class ArticleList extends React.Component<Props> {
+class ArticleList extends React.PureComponent<Props> {
     render() {
         const { articles, openItemId, toggleOpenItem } = this.props
         return (
@@ -25,4 +25,4 @@ class ArticleList extends React.Component<Props> {
     }
 }
 
-export default withAccordion<Props>(ArticleList)
+export default withAccordion<any>(ArticleList)
