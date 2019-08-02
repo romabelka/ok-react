@@ -1,24 +1,17 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React from 'react'
 import {IArticle} from './article'
 
 interface Props {
-    article: IArticle
+    article: IArticle,
+    isOpen: boolean,
+    onBtnClick: (article: IArticle) => void
 }
 
-export default function ArticleNew({ article }: Props) {
-    const [isOpen, setOpen] = useState(false)
-    const [counter, setCounter] = useState(42)
-    useEffect(() => {
-        console.log('--- update', 123)
-        return () => console.log('--- cleanup', 321)
-    })
-
-    const toggleOpen = useCallback(() => setOpen(!isOpen), [setOpen, isOpen])
-
+export default function ArticleNew({ article, isOpen, onBtnClick }: Props) {
     return (
         <div>
             <h3>{article.title}</h3>
-            <button onClick = {toggleOpen}>
+            <button onClick = {() => onBtnClick(article)}>
                 {isOpen ? 'close' : 'open'}
             </button>
             {isOpen && <section>{article.text}</section>}
