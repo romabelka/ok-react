@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface IArticle {
+export interface IArticle {
     id: string
     title: string
     text: string
@@ -46,20 +46,6 @@ export default class Article extends React.Component<Props, State> {
         this.setState(state => ({
             isOpen: !state.isOpen  //true -> false
         }))
-
-        this.setState(state => ({
-            isOpen: !state.isOpen  //false -> true
-        }))
-
-/*
-        this.setState({
-            isOpen: !this.state.isOpen  //true -> false
-        })
-        //true
-        this.setState({
-            isOpen: !this.state.isOpen  //true -> false
-        })
-*/
 
     }
 
