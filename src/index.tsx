@@ -1,6 +1,10 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import articles from './fixtures.json'
-import App from './app'
+import {IArticle} from "./article";
+import withAccordion from "./decorators/accordion";
+import ArticleList from "./article-list";
 
-ReactDOM.render(<App articles={articles}/>, document.getElementById('root'))
+const ArticleListWithAccordion = withAccordion<{articles: IArticle[]}>(ArticleList);
+
+ReactDOM.render(<ArticleListWithAccordion articles={articles}/>, document.getElementById('root'));

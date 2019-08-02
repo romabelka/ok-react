@@ -10,8 +10,8 @@ interface AdditionalProps {
     toggleOpenItem: (item: IArticle) => void
 }
 
-export default function withAccordion<T extends AdditionalProps>(OriginalComponent: React.ComponentType<T>) {
-    return class Accordion extends React.Component<Exclude<T, AdditionalProps>, State> {
+export default function withAccordion<T>(OriginalComponent: React.ComponentType<T & AdditionalProps>) {
+    return class Accordion extends React.Component<T, State> {
         state: State = {
             openItemId: undefined
         }

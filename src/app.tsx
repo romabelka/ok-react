@@ -28,7 +28,7 @@ export default class App extends React.Component<Props, State> {
                 <div>
                     <h1>Mega App</h1>
                     Username: <input value={this.state.username} onChange={this.handleUserChange}/>
-                    <ArticleList articles={this.props.articles}/>
+                    <ArticleList articles={this.props.articles} toggleOpenItem={() => {}}/>
                 </div>
             </Provider>
         )
