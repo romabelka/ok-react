@@ -1,5 +1,6 @@
 import * as React from 'react'
-import Article, {IArticle} from './article'
+import Article from './article-new'
+import {IArticle} from './article'
 
 interface Props {
     articles: IArticle[]

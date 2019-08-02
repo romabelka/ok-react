@@ -29,6 +29,14 @@ export default class Article extends React.Component<Props, State> {
         foo: 'bar'
     }
 
+    componentDidMount(): void {
+        console.log('---', 1)
+    }
+
+    componentDidUpdate(): void {
+        console.log('---', 2)
+    }
+
     render() {
         const { article } = this.props
         return (
