@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {IArticle} from './article'
-import {Consumer} from './contexts/username';
+import userContext from './contexts/username';
 
 interface Props {
     article: IArticle,
@@ -9,6 +9,7 @@ interface Props {
 }
 
 export default function ArticleNew({ article, isOpen, onBtnClick }: Props) {
+    const username = useContext(userContext)
     return (
         <div>
             <h3>{article.title}</h3>
@@ -16,9 +17,7 @@ export default function ArticleNew({ article, isOpen, onBtnClick }: Props) {
                 {isOpen ? 'close' : 'open'}
             </button>
             {isOpen && <section>{article.text}</section>}
-            <Consumer>
-                {(username) => <h3>{username}</h3>}
-            </Consumer>
+            <h3>{username}</h3>
         </div>
     )
 }
