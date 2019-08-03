@@ -14,11 +14,18 @@ interface Props {
 @observer
 class ArticleList extends React.PureComponent<Props> {
 
+    componentDidMount(): void {
+        this.props.articlesStore!.fetchAll()
+    }
+
     render() {
-        const { openItemId, toggleOpenItem } = this.props
+        const { openItemId, toggleOpenItem, articlesStore } = this.props
+
+        if (articlesStore!.loading) return <h1>Loading...</h1>
+
         return (
             <div>
-                {this.props.articlesStore!.entities.map((article) =>
+                {this.props.articlesStore!.list.map((article) =>
                     <Article article={article}
                              isOpen={openItemId === article.id}
                              onBtnClick={toggleOpenItem}

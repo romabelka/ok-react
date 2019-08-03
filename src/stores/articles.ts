@@ -7,6 +7,18 @@ interface ICommentInput {
     user: string
 }
 
+interface ResponseArticle {
+    id: string
+    title: string
+    text: string
+    date: string
+    comments?: string[]
+}
+
+interface EntitiesMap {
+    [id: string]: IArticle
+}
+
 export default class ArticlesStore {
     constructor() {
         autorun(() => {
@@ -14,16 +26,26 @@ export default class ArticlesStore {
         })
     }
 
-    @observable entities = defaultArticles
+    @observable loading = false
+    @observable entities: Map<string, IArticle> = new Map()
 
     @computed get size() {
-        return this.entities.length
+        return this.list.length
     }
 
-    private processData = () => {
+    @computed get list() {
+        return [...this.entities.values()]
     }
 
-    getById = (id: string): IArticle | undefined => this.entities.find(article => article.id === id)
+    @action private processData = (data: ResponseArticle[]) => {
+        this.entities = new Map(data.map(
+            (article) => [article.id, {...article, comments: []}]
+        ))
+
+        this.loading = false
+    }
+
+    getById = (id: string): IArticle | undefined => this.entities.get(id)
 
     @action addComment = (comment: ICommentInput, articleId: string) => {
         const article = this.getById(articleId)
@@ -37,10 +59,16 @@ export default class ArticlesStore {
     @action addArticle = (article: typeof defaultArticles[0]) => {}
 
     @action deleteArticle = (id: string) => {
-        this.entities = this.entities.filter(article => article.id !== id)
+        this.entities.delete(id)
     }
 
-    @action fetchAll = () => {}
+    @action fetchAll = async () => {
+        this.loading = true
+
+        const res = await fetch('/api/article')
+        this.processData(await res.json())
+
+    }
 }
 
 

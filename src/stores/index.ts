@@ -2,7 +2,7 @@ import {configure} from 'mobx'
 import ArticlesStore from './articles'
 
 configure({
-    enforceActions: 'never'
+    enforceActions: 'always'
 })
 
 export interface IStores {
