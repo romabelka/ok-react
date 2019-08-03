@@ -3,6 +3,8 @@ import {IArticle} from './article'
 import userContext from './contexts/username';
 import articlesStore from './stores'
 import CommentList from './components/comment-list'
+import CommentForm from './components/comment-form'
+import {observer} from 'mobx-react'
 
 interface Props {
     article: IArticle,
@@ -10,7 +12,7 @@ interface Props {
     onBtnClick: (article: IArticle) => void
 }
 
-export default function ArticleNew({ article, isOpen, onBtnClick }: Props) {
+export default observer(function ArticleNew({ article, isOpen, onBtnClick }: Props) {
     const username = useContext(userContext)
     return (
         <div>
@@ -26,6 +28,7 @@ export default function ArticleNew({ article, isOpen, onBtnClick }: Props) {
                 <CommentList comments={article.comments}/>
             </section>}
             <h3>{username}</h3>
+            <CommentForm articleId={article.id}/>
         </div>
     )
-}
+})

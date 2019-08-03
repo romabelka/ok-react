@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {IComment} from '../article'
 import Comment from './comment'
+import {observer} from 'mobx-react'
 
 interface Props {
     comments?: IComment[]
@@ -9,6 +10,7 @@ interface Props {
 interface State {
 }
 
+@observer
 export default class CommentList extends React.Component<Props, State> {
     render() {
         const {comments} = this.props
