@@ -52,7 +52,7 @@ export default class App extends React.Component<Props, State> {
                     <h1 ref={this.headerRef}>Mega App</h1>
                     Username: <input value={this.state.username} onChange={this.handleUserChange}/>
                     <EndorphinComponent ref={this.endorphinRef}/>
-                    <ArticleList articles={this.props.articles}/>
+                    <ArticleList />
                 </div>
             </Provider>
         )

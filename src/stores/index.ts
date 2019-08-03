@@ -5,5 +5,12 @@ configure({
     enforceActions: 'never'
 })
 
+export interface IStores {
+    articlesStore: ArticlesStore
+}
 
-export default new ArticlesStore()
+const stores: IStores = {
+    articlesStore: new ArticlesStore()
+}
+
+export default stores

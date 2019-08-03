@@ -1,16 +1,16 @@
 import * as React from 'react'
-import {observer} from 'mobx-react'
+import {inject, observer} from 'mobx-react'
 import Article from './article-new'
 import withAccordion from './decorators/accordion'
-import articlesStore from './stores'
-import {IArticle} from './article'
+import ArticlesStore from './stores/articles'
 
 interface Props {
-    articles: IArticle[]
     toggleOpenItem: (article: { id: string }) => void
     openItemId?: string
+    articlesStore?: ArticlesStore
 }
 
+@inject('articlesStore')
 @observer
 class ArticleList extends React.PureComponent<Props> {
 
@@ -18,7 +18,7 @@ class ArticleList extends React.PureComponent<Props> {
         const { openItemId, toggleOpenItem } = this.props
         return (
             <div>
-                {articlesStore.entities.map((article) =>
+                {this.props.articlesStore!.entities.map((article) =>
                     <Article article={article}
                              isOpen={openItemId === article.id}
                              onBtnClick={toggleOpenItem}

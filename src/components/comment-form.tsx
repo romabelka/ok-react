@@ -1,15 +1,17 @@
 import * as React from 'react'
 import {action, observable} from 'mobx'
-import {observer} from 'mobx-react'
-import articleStore from '../stores'
+import {inject, observer} from 'mobx-react'
+import ArticlesStore from '../stores/articles'
 
 interface Props {
     articleId: string
+    articlesStore?: ArticlesStore
 }
 
 interface State {
 }
 
+@inject('articlesStore')
 @observer
 export default class CommentForm extends React.Component<Props, State> {
     @observable user = ''
@@ -20,7 +22,7 @@ export default class CommentForm extends React.Component<Props, State> {
 
     submit = (ev: React.FormEvent) => {
         ev.preventDefault()
-        articleStore.addComment({
+        this.props.articlesStore!.addComment({
             user: this.user,
             text: this.comment
         }, this.props.articleId)

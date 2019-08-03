@@ -1,18 +1,19 @@
 import React, {useContext} from 'react'
 import {IArticle} from './article'
 import userContext from './contexts/username';
-import articlesStore from './stores'
 import CommentList from './components/comment-list'
 import CommentForm from './components/comment-form'
-import {observer} from 'mobx-react'
+import {inject, observer} from 'mobx-react'
+import ArticlesStore from './stores/articles'
 
 interface Props {
     article: IArticle,
     isOpen: boolean,
-    onBtnClick: (article: IArticle) => void
+    onBtnClick: (article: IArticle) => void,
+    articlesStore?: ArticlesStore
 }
 
-export default observer(function ArticleNew({ article, isOpen, onBtnClick }: Props) {
+export default inject('articlesStore')(observer(function ArticleNew({ article, isOpen, onBtnClick, articlesStore }: Props) {
     const username = useContext(userContext)
     return (
         <div>
@@ -20,7 +21,7 @@ export default observer(function ArticleNew({ article, isOpen, onBtnClick }: Pro
             <button onClick = {() => onBtnClick(article)}>
                 {isOpen ? 'close' : 'open'}
             </button>
-            <button onClick={() => articlesStore.deleteArticle(article.id)}>
+            <button onClick={() => articlesStore!.deleteArticle(article.id)}>
                 delete me
             </button>
             {isOpen && <section>
@@ -31,4 +32,4 @@ export default observer(function ArticleNew({ article, isOpen, onBtnClick }: Pro
             <CommentForm articleId={article.id}/>
         </div>
     )
-})
+}))
