@@ -23,10 +23,26 @@ interface EntitiesMap {
 
 export default class ArticlesStore {
     private resolve: ({}) => void = () => {}
-    isReady: Promise<void>
+    isReady: Promise<string>
 
     constructor() {
-        this.isReady = this.fetchAll()
+        if ((window as any).ARTICLES_STORE_INITIAL_STATE) {
+            this.hydrate()
+            this.isReady = Promise.resolve('')
+        } else {
+            this.isReady = this.fetchAll().then(this.dehydrate)
+        }
+    }
+
+    @action private hydrate = () => {
+        this.entities = new Map((window as any).ARTICLES_STORE_INITIAL_STATE)
+    }
+
+    dehydrate = () => {
+        const initialState = toJS(this.list.map(article => [article.id, article]))
+        ;(window as any).ARTICLES_STORE_INITIAL_STATE = initialState
+
+        return JSON.stringify(initialState)
     }
 
     @observable.shallow arr: any[] = []
