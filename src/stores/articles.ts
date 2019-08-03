@@ -17,14 +17,13 @@ export default class ArticlesStore {
     private processData = () => {
     }
 
-    @action addArticle = (article: typeof defaultArticles[0]) => this.entities = [article, ...this.entities]
+    @action addArticle = (article: typeof defaultArticles[0]) => {}
 
     @action deleteArticle = (id: string) => {
-        const article = this.fetchAll()
-        this.addArticle(article!)
+        this.entities = this.entities.filter(article => article.id !== id)
     }
 
-    @action fetchAll = () => this.entities.pop()
+    @action fetchAll = () => {}
 }
 
 

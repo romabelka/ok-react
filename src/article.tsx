@@ -8,7 +8,7 @@ export interface IArticle {
     comments?: IComment[]
 }
 
-interface IComment {
+export interface IComment {
     id: string
     user: string
     text: string

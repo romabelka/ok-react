@@ -1,5 +1,7 @@
 https://github.com/acdlite/react-fiber-architecture
 
+https://habr.com/ru/post/349022/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

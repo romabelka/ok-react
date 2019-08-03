@@ -11,6 +11,7 @@ interface Props {
     openItemId?: string
 }
 
+@observer
 class ArticleList extends React.PureComponent<Props> {
 
     render() {
