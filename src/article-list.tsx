@@ -1,7 +1,9 @@
 import * as React from 'react'
+import {observer} from 'mobx-react'
 import Article from './article-new'
-import {IArticle} from './article'
 import withAccordion from './decorators/accordion'
+import articlesStore from './stores'
+import {IArticle} from './article'
 
 interface Props {
     articles: IArticle[]
@@ -12,10 +14,10 @@ interface Props {
 class ArticleList extends React.PureComponent<Props> {
 
     render() {
-        const { articles, openItemId, toggleOpenItem } = this.props
+        const { openItemId, toggleOpenItem } = this.props
         return (
             <div>
-                {articles.map((article) =>
+                {articlesStore.entities.map((article) =>
                     <Article article={article}
                              isOpen={openItemId === article.id}
                              onBtnClick={toggleOpenItem}

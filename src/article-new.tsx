@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import {IArticle} from './article'
 import userContext from './contexts/username';
+import articlesStore from './stores'
 
 interface Props {
     article: IArticle,
@@ -15,6 +16,9 @@ export default function ArticleNew({ article, isOpen, onBtnClick }: Props) {
             <h3>{article.title}</h3>
             <button onClick = {() => onBtnClick(article)}>
                 {isOpen ? 'close' : 'open'}
+            </button>
+            <button onClick={() => articlesStore.deleteArticle(article.id)}>
+                delete me
             </button>
             {isOpen && <section>{article.text}</section>}
             <h3>{username}</h3>
