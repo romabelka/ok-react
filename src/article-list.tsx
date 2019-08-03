@@ -5,11 +5,12 @@ import withAccordion from './decorators/accordion'
 
 interface Props {
     articles: IArticle[]
-    toggleOpenItem: (article: IArticle) => void
+    toggleOpenItem: (article: { id: string }) => void
     openItemId?: string
 }
 
 class ArticleList extends React.PureComponent<Props> {
+
     render() {
         const { articles, openItemId, toggleOpenItem } = this.props
         return (
@@ -25,4 +26,4 @@ class ArticleList extends React.PureComponent<Props> {
     }
 }
 
-export default withAccordion<any>(ArticleList)
+export default withAccordion<Props>(ArticleList)
