@@ -1,14 +1,11 @@
 import * as React from 'react'
-import {findDOMNode} from 'react-dom'
 import ArticleList from './article-list'
-import {IArticle} from './article'
 import {Provider} from './contexts/username';
 import EndorphinComponent from './components/endorphin-component'
 import Menu from './components/menu'
 import MenuItem from './components/menu/menu-item'
 
 interface Props {
-    articles: IArticle[]
 }
 
 interface State {

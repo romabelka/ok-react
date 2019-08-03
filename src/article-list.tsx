@@ -21,6 +21,8 @@ class ArticleList extends React.PureComponent<Props> {
     render() {
         const { openItemId, toggleOpenItem, articlesStore } = this.props
 
+        articlesStore!.getObj()
+
         if (articlesStore!.loading) return <h1>Loading...</h1>
 
         return (

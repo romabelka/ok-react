@@ -1,4 +1,4 @@
-import {observable, computed, autorun, action, set} from 'mobx'
+import {observable, computed, autorun, action, set, toJS} from 'mobx'
 import {IArticle, IComment} from '../article'
 
 interface ICommentInput {
@@ -27,6 +27,8 @@ export default class ArticlesStore {
             console.log(this.size)
         })
     }
+
+    @observable.shallow arr: any[] = []
 
     @observable loading = false
     @observable entities: Map<string, IArticle> = new Map()
