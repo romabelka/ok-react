@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {findDOMNode} from 'react-dom'
 import ArticleList from './article-list'
 import {IArticle} from './article'
 import {Provider} from './contexts/username';
@@ -18,6 +19,7 @@ export default class App extends React.Component<Props, State> {
     }
 
     headerRef: React.RefObject<HTMLHeadingElement> = React.createRef()
+    endorphinRef: React.RefObject<EndorphinComponent> = React.createRef()
 
     handleUserChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({
@@ -27,6 +29,11 @@ export default class App extends React.Component<Props, State> {
 
     componentDidMount(): void {
         console.log('---', 'header', this.headerRef.current)
+        if (this.endorphinRef.current) {
+            console.log('---', 'endorphin', this.endorphinRef.current.start())
+            console.log('---', 'endorphin element', findDOMNode(this.endorphinRef.current))
+
+        }
     }
 
     setContainerRef = (container: HTMLElement | null) => console.log(container)
@@ -37,7 +44,7 @@ export default class App extends React.Component<Props, State> {
                 <div ref={this.setContainerRef}>
                     <h1 ref={this.headerRef}>Mega App</h1>
                     Username: <input value={this.state.username} onChange={this.handleUserChange}/>
-                    <EndorphinComponent />
+                    <EndorphinComponent ref={this.endorphinRef}/>
                     <ArticleList articles={this.props.articles}/>
                 </div>
             </Provider>

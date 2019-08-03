@@ -9,6 +9,10 @@ interface State {
 export default class EndorphinComponent extends React.Component<Props, State> {
     containerRef: React.RefObject<HTMLDivElement> = React.createRef()
 
+    start = () => {
+        console.log('---', 'enable component')
+    }
+
     componentDidMount(): void {
         //do something with this.containerRef
     }
