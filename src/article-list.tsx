@@ -26,4 +26,4 @@ class ArticleList extends React.PureComponent<Props> {
     }
 }
 
-export default withAccordion<Props>(ArticleList)
+export default withAccordion(ArticleList)

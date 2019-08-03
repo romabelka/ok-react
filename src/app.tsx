@@ -16,17 +16,25 @@ export default class App extends React.Component<Props, State> {
         username: 'Oleg'
     }
 
+    headerRef: React.RefObject<HTMLHeadingElement> = React.createRef()
+
     handleUserChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({
             username: ev.target.value
         })
     }
 
+    componentDidMount(): void {
+        console.log('---', 'header', this.headerRef.current)
+    }
+
+    setContainerRef = (container: HTMLElement | null) => console.log(container)
+
     render() {
         return (
             <Provider value={this.state.username}>
-                <div>
-                    <h1>Mega App</h1>
+                <div ref={this.setContainerRef}>
+                    <h1 ref={this.headerRef}>Mega App</h1>
                     Username: <input value={this.state.username} onChange={this.handleUserChange}/>
                     <ArticleList articles={this.props.articles}/>
                 </div>
