@@ -17,9 +17,9 @@ export default function withAccordion<T extends AdditionalProps>(OriginalCompone
             openItemId: undefined
         }
 
-        toggleOpenItem = (item: { id: string }) => this.setState({
-            openItemId: item.id
-        })
+        toggleOpenItem = (item: { id: string }) => this.setState(state => ({
+            openItemId: state.openItemId === item.id ? undefined : item.id
+        }))
 
         render() {
             return <OriginalComponent
