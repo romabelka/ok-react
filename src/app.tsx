@@ -37,12 +37,13 @@ export default class App extends React.Component<Props, State> {
     }
 
     setContainerRef = (container: HTMLElement | null) => console.log(container)
+    getSubMenu = () => <h3>Sub Menu</h3>
 
     render() {
         return (
             <Provider value={this.state.username}>
                 <div ref={this.setContainerRef}>
-                    <Menu>
+                    <Menu subMenu={this.getSubMenu}>
                         <MenuItem>articles</MenuItem>
                         <MenuItem>comments</MenuItem>
                         <MenuItem>account</MenuItem>
