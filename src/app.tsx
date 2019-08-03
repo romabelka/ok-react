@@ -4,6 +4,8 @@ import ArticleList from './article-list'
 import {IArticle} from './article'
 import {Provider} from './contexts/username';
 import EndorphinComponent from './components/endorphin-component'
+import Menu from './components/menu'
+import MenuItem from './components/menu/menu-item'
 
 interface Props {
     articles: IArticle[]
@@ -30,9 +32,7 @@ export default class App extends React.Component<Props, State> {
     componentDidMount(): void {
         console.log('---', 'header', this.headerRef.current)
         if (this.endorphinRef.current) {
-            console.log('---', 'endorphin', this.endorphinRef.current.start())
-            console.log('---', 'endorphin element', findDOMNode(this.endorphinRef.current))
-
+            console.log('---', 'endorphin', this.endorphinRef.current)
         }
     }
 
@@ -42,6 +42,12 @@ export default class App extends React.Component<Props, State> {
         return (
             <Provider value={this.state.username}>
                 <div ref={this.setContainerRef}>
+                    <Menu>
+                        <MenuItem>articles</MenuItem>
+                        <MenuItem>comments</MenuItem>
+                        <MenuItem>account</MenuItem>
+                    </Menu>
+
                     <h1 ref={this.headerRef}>Mega App</h1>
                     Username: <input value={this.state.username} onChange={this.handleUserChange}/>
                     <EndorphinComponent ref={this.endorphinRef}/>
