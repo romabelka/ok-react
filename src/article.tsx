@@ -5,7 +5,8 @@ export interface IArticle {
     title: string
     text: string
     date: string
-    comments?: IComment[]
+    loading: boolean
+    comments: IComment[]
 }
 
 export interface IComment {

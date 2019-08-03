@@ -1,18 +1,20 @@
 import {observable, computed, autorun, action, set} from 'mobx'
-import defaultArticles from '../fixtures.json'
-import {IArticle} from '../article'
+import {IArticle, IComment} from '../article'
 
 interface ICommentInput {
     text: string
     user: string
 }
 
-interface ResponseArticle {
+interface ArticleResponse {
     id: string
     title: string
-    text: string
     date: string
     comments?: string[]
+}
+
+interface FullArticleResponse extends ArticleResponse {
+    text: string
 }
 
 interface EntitiesMap {
@@ -37,9 +39,9 @@ export default class ArticlesStore {
         return [...this.entities.values()]
     }
 
-    @action private processData = (data: ResponseArticle[]) => {
+    @action private processData = (data: ArticleResponse[]) => {
         this.entities = new Map(data.map(
-            (article) => [article.id, {...article, comments: []}]
+            (article) => [article.id, {...article, loading: false, text: '', comments: []}]
         ))
 
         this.loading = false
@@ -56,7 +58,11 @@ export default class ArticlesStore {
         }
     }
 
-    @action addArticle = (article: typeof defaultArticles[0]) => {}
+    @action addArticle = ({comments, ...rest}: FullArticleResponse) => {
+        const oldArticle = this.getById(rest.id) || {...rest, comments: [] as IComment[]}
+
+        this.entities.set(rest.id, {...rest, ...oldArticle, loading: false})
+    }
 
     @action deleteArticle = (id: string) => {
         this.entities.delete(id)
@@ -67,7 +73,15 @@ export default class ArticlesStore {
 
         const res = await fetch('/api/article')
         this.processData(await res.json())
+    }
 
+    @action fetchArticle = async (id: string) => {
+        const article = this.getById(id)
+        if (article) article.loading = true
+
+        const res = await fetch(`/api/article/${id}`)
+
+        this.addArticle(await res.json())
     }
 }
 

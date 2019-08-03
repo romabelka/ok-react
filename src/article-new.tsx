@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {IArticle} from './article'
 import userContext from './contexts/username';
 import CommentList from './components/comment-list'
@@ -15,6 +15,9 @@ interface Props {
 
 export default inject('articlesStore')(observer(function ArticleNew({ article, isOpen, onBtnClick, articlesStore }: Props) {
     const username = useContext(userContext)
+    useEffect(() => {
+        if (isOpen) articlesStore!.fetchArticle(article.id)
+    }, [article.id, isOpen])
     return (
         <div>
             <h3>{article.title}</h3>
@@ -25,6 +28,7 @@ export default inject('articlesStore')(observer(function ArticleNew({ article, i
                 delete me
             </button>
             {isOpen && <section>
+                {article.loading && <h2>Loading...</h2>}
                 {article.text}
                 <CommentList comments={article.comments}/>
             </section>}
