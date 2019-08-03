@@ -13,4 +13,8 @@ const stores: IStores = {
     articlesStore: new ArticlesStore()
 }
 
-export default stores
+;(window as any).stores = stores
+
+export default () => ({
+    articlesStore: new ArticlesStore()
+})

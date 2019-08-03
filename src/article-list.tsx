@@ -13,15 +13,8 @@ interface Props {
 @inject('articlesStore')
 @observer
 class ArticleList extends React.PureComponent<Props> {
-
-    componentDidMount(): void {
-        this.props.articlesStore!.fetchAll()
-    }
-
     render() {
         const { openItemId, toggleOpenItem, articlesStore } = this.props
-
-        articlesStore!.getObj()
 
         if (articlesStore!.loading) return <h1>Loading...</h1>
 

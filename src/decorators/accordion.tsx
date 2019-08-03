@@ -14,7 +14,7 @@ export default function withAccordion<T extends AdditionalProps>(OriginalCompone
 
     return class Accordion extends React.Component<Subtract<T, AdditionalProps>, State> {
         state: State = {
-            openItemId: undefined
+            openItemId: '56c782f18990ecf954f6e027'
         }
 
         toggleOpenItem = (item: { id: string }) => this.setState(state => ({

@@ -22,10 +22,11 @@ interface EntitiesMap {
 }
 
 export default class ArticlesStore {
+    private resolve: ({}) => void = () => {}
+    isReady: Promise<void>
+
     constructor() {
-        autorun(() => {
-            console.log(this.size)
-        })
+        this.isReady = this.fetchAll()
     }
 
     @observable.shallow arr: any[] = []
@@ -63,7 +64,7 @@ export default class ArticlesStore {
     @action addArticle = ({comments, ...rest}: FullArticleResponse) => {
         const oldArticle = this.getById(rest.id) || {...rest, comments: [] as IComment[]}
 
-        this.entities.set(rest.id, {...rest, ...oldArticle, loading: false})
+        this.entities.set(rest.id, {...oldArticle, ...rest, loading: false})
     }
 
     @action deleteArticle = (id: string) => {
@@ -75,6 +76,8 @@ export default class ArticlesStore {
 
         const res = await fetch('/api/article')
         this.processData(await res.json())
+
+        this.resolve({})
     }
 
     @action fetchArticle = async (id: string) => {
