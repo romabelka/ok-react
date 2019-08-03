@@ -2,6 +2,7 @@ import * as React from 'react'
 import ArticleList from './article-list'
 import {IArticle} from './article'
 import {Provider} from './contexts/username';
+import EndorphinComponent from './components/endorphin-component'
 
 interface Props {
     articles: IArticle[]
@@ -36,6 +37,7 @@ export default class App extends React.Component<Props, State> {
                 <div ref={this.setContainerRef}>
                     <h1 ref={this.headerRef}>Mega App</h1>
                     Username: <input value={this.state.username} onChange={this.handleUserChange}/>
+                    <EndorphinComponent />
                     <ArticleList articles={this.props.articles}/>
                 </div>
             </Provider>
